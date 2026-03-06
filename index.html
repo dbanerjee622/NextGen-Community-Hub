@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NextGen Community Hub – Monmouth County, NJ</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #4F46E5;
+      --primary-light: #EEF2FF;
+      --primary-dark: #3730A3;
+      --accent: #10B981;
+      --accent-light: #D1FAE5;
+      --text: #1F2937;
+      --muted: #6B7280;
+      --border: #E5E7EB;
+      --bg: #FFFFFF;
+      --card-shadow: 0 4px 6px -1px rgba(0,0,0,.07), 0 2px 4px -2px rgba(0,0,0,.05);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: white; border-bottom: 1px solid var(--border);
+      padding: 0 2rem; display: flex; align-items: center; justify-content: space-between;
+      height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .nav-logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+    .nav-logo .logo-icon { width: 36px; height: 36px; background: var(--primary); border-radius: 10px; display: grid; place-items: center; color: white; font-weight: 800; font-size: 1.1rem; }
+    .nav-logo span { font-weight: 700; font-size: 1.1rem; color: var(--text); }
+    .nav-logo span em { color: var(--primary); font-style: normal; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: .92rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-cta { background: var(--primary); color: white; border: none; padding: .5rem 1.2rem; border-radius: 8px; font-size: .88rem; font-weight: 600; cursor: pointer; transition: background .2s; }
+    .nav-cta:hover { background: var(--primary-dark); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+      color: white; text-align: center; padding: 5rem 2rem 4rem;
+    }
+    .hero-badge { display: inline-block; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); padding: .3rem 1rem; border-radius: 999px; font-size: .82rem; margin-bottom: 1.2rem; letter-spacing: .03em; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; }
+    .hero h1 span { color: #A5F3FC; }
+    .hero p { max-width: 560px; margin: 0 auto 2rem; opacity: .9; font-size: 1.05rem; }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-hero { padding: .75rem 1.8rem; border-radius: 10px; font-weight: 700; font-size: .95rem; cursor: pointer; border: none; transition: transform .15s, box-shadow .15s; }
+    .btn-hero:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.2); }
+    .btn-primary-hero { background: white; color: var(--primary); }
+    .btn-outline-hero { background: transparent; color: white; border: 2px solid rgba(255,255,255,.6); }
+    .hero-stats { display: flex; gap: 2.5rem; justify-content: center; margin-top: 3rem; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 800; }
+    .stat-label { font-size: .8rem; opacity: .8; margin-top: .1rem; }
+
+    /* ── SECTION SHELL ── */
+    section { padding: 4rem 2rem; }
+    .section-header { text-align: center; margin-bottom: 2.5rem; }
+    .section-header h2 { font-size: 1.9rem; font-weight: 800; }
+    .section-header p { color: var(--muted); margin-top: .5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .section-tag { display: inline-block; background: var(--primary-light); color: var(--primary); padding: .2rem .8rem; border-radius: 999px; font-size: .78rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; margin-bottom: .8rem; }
+
+    /* ── SPOTLIGHT ── */
+    #spotlight { background: var(--primary-light); }
+    .spotlight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .spotlight-card {
+      background: white; border-radius: 16px; padding: 1.8rem; box-shadow: var(--card-shadow);
+      border-top: 4px solid var(--primary); position: relative; overflow: hidden;
+    }
+    .spotlight-card::after { content: '★ Featured'; position: absolute; top: 1rem; right: 1rem; background: #FEF3C7; color: #92400E; font-size: .72rem; font-weight: 700; padding: .2rem .6rem; border-radius: 999px; }
+    .spot-cat { font-size: .78rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: .05em; margin-bottom: .5rem; }
+    .spot-title { font-size: 1.15rem; font-weight: 700; margin-bottom: .5rem; }
+    .spot-desc { color: var(--muted); font-size: .9rem; line-height: 1.5; margin-bottom: 1rem; }
+    .spot-meta { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .tag { background: var(--border); color: var(--text); font-size: .75rem; padding: .2rem .7rem; border-radius: 999px; }
+    .tag.free { background: var(--accent-light); color: #065F46; }
+    .btn-sm { display: inline-block; background: var(--primary); color: white; padding: .45rem 1rem; border-radius: 8px; font-size: .82rem; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: background .2s; }
+    .btn-sm:hover { background: var(--primary-dark); }
+
+    /* ── SEARCH + FILTER ── */
+    #directory { background: #F9FAFB; }
+    .search-bar-wrap { max-width: 900px; margin: 0 auto 1.5rem; }
+    .search-row { display: flex; gap: .8rem; }
+    .search-input {
+      flex: 1; padding: .75rem 1rem; border: 2px solid var(--border); border-radius: 10px;
+      font-size: .95rem; outline: none; transition: border-color .2s;
+    }
+    .search-input:focus { border-color: var(--primary); }
+    .search-btn { background: var(--primary); color: white; border: none; border-radius: 10px; padding: .75rem 1.4rem; font-weight: 700; cursor: pointer; font-size: .9rem; }
+    .filter-row { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1rem; }
+    .filter-select { padding: .55rem 1rem; border: 2px solid var(--border); border-radius: 8px; font-size: .88rem; background: white; cursor: pointer; outline: none; color: var(--text); }
+    .filter-select:focus { border-color: var(--primary); }
+    .results-count { text-align: right; color: var(--muted); font-size: .85rem; margin-bottom: 1rem; max-width: 900px; margin-left: auto; margin-right: auto; }
+
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.4rem; max-width: 1100px; margin: 0 auto; }
+    .resource-card {
+      background: white; border-radius: 14px; padding: 1.5rem; box-shadow: var(--card-shadow);
+      border: 1px solid var(--border); transition: transform .2s, box-shadow .2s;
+    }
+    .resource-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,.1); }
+    .rc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: .6rem; }
+    .rc-cat-pill { background: var(--primary-light); color: var(--primary); font-size: .72rem; font-weight: 700; padding: .2rem .65rem; border-radius: 999px; text-transform: uppercase; }
+    .rc-title { font-size: 1rem; font-weight: 700; margin-bottom: .4rem; }
+    .rc-desc { color: var(--muted); font-size: .87rem; line-height: 1.5; margin-bottom: 1rem; }
+    .rc-details { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .rc-footer { display: flex; justify-content: space-between; align-items: center; padding-top: .8rem; border-top: 1px solid var(--border); }
+    .rc-location { color: var(--muted); font-size: .8rem; }
+    .no-results { text-align: center; padding: 3rem; color: var(--muted); }
+
+    /* ── OPPORTUNITIES ── */
+    #opportunities { background: white; }
+    .opp-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+    .opp-item { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1.5rem; box-shadow: var(--card-shadow); }
+    .opp-date { background: var(--primary); color: white; border-radius: 10px; padding: .5rem .8rem; text-align: center; min-width: 56px; }
+    .opp-date .mo { font-size: .7rem; text-transform: uppercase; font-weight: 700; opacity: .85; }
+    .opp-date .dy { font-size: 1.4rem; font-weight: 800; line-height: 1; }
+    .opp-content { flex: 1; }
+    .opp-title { font-weight: 700; font-size: .97rem; }
+    .opp-sub { color: var(--muted); font-size: .85rem; }
+    .opp-badge { background: var(--accent-light); color: #065F46; font-size: .75rem; font-weight: 700; padding: .2rem .7rem; border-radius: 999px; white-space: nowrap; }
+
+    /* ── SUGGEST FORM ── */
+    #suggest { background: var(--primary-light); }
+    .form-wrap { max-width: 680px; margin: 0 auto; background: white; border-radius: 18px; padding: 2.5rem; box-shadow: var(--card-shadow); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: .88rem; font-weight: 600; color: var(--text); }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: .65rem .9rem; border: 2px solid var(--border); border-radius: 9px;
+      font-size: .9rem; outline: none; transition: border-color .2s; font-family: inherit;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-note { font-size: .78rem; color: var(--muted); margin-top: .3rem; }
+    .btn-submit { width: 100%; background: var(--primary); color: white; border: none; padding: .9rem; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 1.4rem; transition: background .2s; }
+    .btn-submit:hover { background: var(--primary-dark); }
+
+    /* ── SCHOLARSHIPS ── */
+    #scholarships { background: #F9FAFB; }
+    .sch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.4rem; max-width: 1100px; margin: 0 auto; }
+    .sch-card { background: white; border-radius: 14px; padding: 1.5rem; box-shadow: var(--card-shadow); border: 1px solid var(--border); }
+    .sch-amount { font-size: 1.4rem; font-weight: 800; color: var(--accent); }
+    .sch-name { font-weight: 700; font-size: 1rem; margin: .3rem 0; }
+    .sch-org { color: var(--muted); font-size: .85rem; margin-bottom: .8rem; }
+    .sch-deadline { background: #FEF3C7; color: #92400E; font-size: .78rem; font-weight: 700; padding: .25rem .7rem; border-radius: 999px; display: inline-block; margin-bottom: 1rem; }
+    .sch-gpa { font-size: .83rem; color: var(--muted); }
+
+    /* ── RESUME TIPS ── */
+    #resume { background: white; }
+    .resume-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.4rem; max-width: 1000px; margin: 0 auto; }
+    .resume-tip { background: var(--primary-light); border-radius: 14px; padding: 1.5rem; }
+    .tip-icon { font-size: 2rem; margin-bottom: .7rem; }
+    .tip-title { font-weight: 700; font-size: .97rem; margin-bottom: .5rem; }
+    .tip-body { color: var(--muted); font-size: .87rem; line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    footer { background: #111827; color: #9CA3AF; padding: 3rem 2rem; text-align: center; }
+    .footer-logo { color: white; font-weight: 800; font-size: 1.2rem; margin-bottom: .5rem; }
+    .footer-sub { font-size: .85rem; margin-bottom: 1.5rem; }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .footer-links a { color: #9CA3AF; text-decoration: none; font-size: .85rem; transition: color .2s; }
+    .footer-links a:hover { color: white; }
+    .footer-copy { font-size: .78rem; border-top: 1px solid #1F2937; padding-top: 1.2rem; }
+
+    /* ── ARCH DOC ── */
+    #arch { background: #111827; color: #E5E7EB; }
+    #arch .section-header h2 { color: white; }
+    #arch .section-tag { background: rgba(79,70,229,.3); color: #A5B4FC; }
+    .arch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.4rem; max-width: 1100px; margin: 0 auto; }
+    .arch-card { background: #1F2937; border-radius: 14px; padding: 1.6rem; border: 1px solid #374151; }
+    .arch-card h3 { font-size: .95rem; font-weight: 700; color: #A5B4FC; margin-bottom: 1rem; }
+    .arch-card ul { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+    .arch-card li { font-size: .85rem; color: #D1D5DB; display: flex; gap: .5rem; align-items: flex-start; }
+    .arch-card li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+    pre.code-block { background: #0F172A; border-radius: 10px; padding: 1.2rem; font-size: .78rem; color: #94A3B8; overflow-x: auto; margin-top: 1rem; line-height: 1.6; max-width: 1100px; margin-left: auto; margin-right: auto; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .form-grid { grid-template-columns: 1fr; }
+      .search-row { flex-direction: column; }
+      .opp-item { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav role="navigation" aria-label="Main navigation">
+  <a class="nav-logo" href="#" aria-label="NextGen Community Hub home">
+    <div class="logo-icon">N</div>
+    <span><em>NextGen</em> Community Hub</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#spotlight">Spotlight</a></li>
+    <li><a href="#directory">Directory</a></li>
+    <li><a href="#opportunities">Opportunities</a></li>
+    <li><a href="#scholarships">Scholarships</a></li>
+    <li><a href="#resume">Resume Tips</a></li>
+    <li><a href="#suggest">Suggest</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('suggest').scrollIntoView({behavior:'smooth'})">+ Add Resource</button>
+</nav>
+
+<!-- HERO -->
+<header class="hero" role="banner">
+  <div class="hero-badge">🏆 Monmouth County, NJ · Youth & Family Resource Hub</div>
+  <h1>Find Resources That Help<br><span>Teens Thrive</span></h1>
+  <p>Academic support, mental health, STEM, sports, internships, and more — all in one place for Monmouth County youth and families.</p>
+  <div class="hero-actions">
+    <button class="btn-hero btn-primary-hero" onclick="document.getElementById('directory').scrollIntoView({behavior:'smooth'})">Browse Resources</button>
+    <button class="btn-hero btn-outline-hero" onclick="document.getElementById('suggest').scrollIntoView({behavior:'smooth'})">Suggest a Resource</button>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Resources Listed</div></div>
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Categories</div></div>
+    <div class="stat"><div class="stat-num">Free</div><div class="stat-label">Always & Forever</div></div>
+    <div class="stat"><div class="stat-num">🏠</div><div class="stat-label">Monmouth County</div></div>
+  </div>
+</header>
+
+<!-- SPOTLIGHT -->
+<section id="spotlight" aria-labelledby="spotlight-heading">
+  <div class="section-header">
+    <div class="section-tag">⭐ Spotlight</div>
+    <h2 id="spotlight-heading">Featured Resources</h2>
+    <p>Hand-picked programs making a real difference for Monmouth County teens and families.</p>
+  </div>
+  <div class="spotlight-grid">
+    <div class="spotlight-card" role="article">
+      <div class="spot-cat">🎓 Academic Support</div>
+      <div class="spot-title">Monmouth County Library SAT Prep</div>
+      <div class="spot-desc">Free SAT/ACT prep workshops every weekend. Expert instructors, practice tests, and one-on-one tutoring available at multiple branches.</div>
+      <div class="spot-meta">
+        <span class="tag free">Free</span>
+        <span class="tag">Ages 14–18</span>
+        <span class="tag">In-Person</span>
+      </div>
+      <a class="btn-sm" href="#" aria-label="Learn more about Monmouth County Library SAT Prep">Learn More →</a>
+    </div>
+    <div class="spotlight-card" role="article">
+      <div class="spot-cat">🧠 Mental Health</div>
+      <div class="spot-title">Teen Talk NJ – Peer Support Groups</div>
+      <div class="spot-desc">Weekly peer-led support groups for teens dealing with stress, anxiety, and life challenges. Facilitated by licensed counselors in a safe space.</div>
+      <div class="spot-meta">
+        <span class="tag free">Free</span>
+        <span class="tag">Ages 13–19</span>
+        <span class="tag">Hybrid</span>
+      </div>
+      <a class="btn-sm" href="#" aria-label="Learn more about Teen Talk NJ">Learn More →</a>
+    </div>
+    <div class="spotlight-card" role="article">
+      <div class="spot-cat">🔬 STEM</div>
+      <div class="spot-title">Rutgers STEM Scholars Program</div>
+      <div class="spot-desc">Hands-on STEM enrichment at Rutgers University. Summer residential program with robotics, biotech labs, and mentorship from faculty researchers.</div>
+      <div class="spot-meta">
+        <span class="tag">Low-Cost</span>
+        <span class="tag">Ages 15–18</span>
+        <span class="tag">On-Campus</span>
+      </div>
+      <a class="btn-sm" href="#" aria-label="Learn more about Rutgers STEM Scholars">Learn More →</a>
+    </div>
+  </div>
+</section>
+
+<!-- DIRECTORY -->
+<section id="directory" aria-labelledby="directory-heading">
+  <div class="section-header">
+    <div class="section-tag">🔍 Directory</div>
+    <h2 id="directory-heading">Resource Directory</h2>
+    <p>Search and filter all resources for Monmouth County youth and families.</p>
+  </div>
+  <div class="search-bar-wrap">
+    <div class="search-row">
+      <input id="searchInput" class="search-input" type="search" placeholder="Search by name, keyword, or tag…" aria-label="Search resources" oninput="filterResources()" />
+      <button class="search-btn" onclick="filterResources()" aria-label="Search">Search</button>
+    </div>
+    <div class="filter-row" role="group" aria-label="Filter resources">
+      <select id="catFilter" class="filter-select" aria-label="Filter by category" onchange="filterResources()">
+        <option value="">All Categories</option>
+        <option>Academic Support</option>
+        <option>Mental Health</option>
+        <option>STEM Programs</option>
+        <option>Sports Leagues</option>
+        <option>Internship Opportunities</option>
+        <option>Volunteer Opportunities</option>
+        <option>Scholarships</option>
+      </select>
+      <select id="ageFilter" class="filter-select" aria-label="Filter by age group" onchange="filterResources()">
+        <option value="">All Ages</option>
+        <option>Middle School (11-14)</option>
+        <option>High School (14-18)</option>
+        <option>Teen (13-19)</option>
+        <option>Family</option>
+      </select>
+      <select id="costFilter" class="filter-select" aria-label="Filter by cost" onchange="filterResources()">
+        <option value="">Any Cost</option>
+        <option>Free</option>
+        <option>Low-Cost</option>
+        <option>Paid</option>
+      </select>
+    </div>
+  </div>
+  <div class="results-count" id="resultsCount" aria-live="polite"></div>
+  <div class="cards-grid" id="cardsGrid" role="list"></div>
+</section>
+
+<!-- OPPORTUNITIES THIS MONTH -->
+<section id="opportunities" aria-labelledby="opp-heading">
+  <div class="section-header">
+    <div class="section-tag">📅 This Month</div>
+    <h2 id="opp-heading">Opportunities This Month</h2>
+    <p>Time-sensitive programs, deadlines, and events happening now in Monmouth County.</p>
+  </div>
+  <div class="opp-list" role="list">
+    <div class="opp-item" role="listitem">
+      <div class="opp-date"><div class="mo">Mar</div><div class="dy">08</div></div>
+      <div class="opp-content">
+        <div class="opp-title">MCST Robotics Spring Showcase – Registration Closes</div>
+        <div class="opp-sub">Monmouth County STEM Academy · Ages 12–18 · Free to Enter</div>
+      </div>
+      <span class="opp-badge">Deadline Soon</span>
+    </div>
+    <div class="opp-item" role="listitem">
+      <div class="opp-date"><div class="mo">Mar</div><div class="dy">15</div></div>
+      <div class="opp-content">
+        <div class="opp-title">NJ Youth Volunteer Corps Spring Cohort Begins</div>
+        <div class="opp-sub">Red Bank Community Center · Ages 14–18 · Free</div>
+      </div>
+      <span class="opp-badge">Open Now</span>
+    </div>
+    <div class="opp-item" role="listitem">
+      <div class="opp-date"><div class="mo">Mar</div><div class="dy">22</div></div>
+      <div class="opp-content">
+        <div class="opp-title">Shore Medical Center Teen Internship – Application Deadline</div>
+        <div class="opp-sub">Shore Medical, Somers Point · Ages 16–18 · Paid Internship</div>
+      </div>
+      <span class="opp-badge">Closing Soon</span>
+    </div>
+    <div class="opp-item" role="listitem">
+      <div class="opp-date"><div class="mo">Apr</div><div class="dy">01</div></div>
+      <div class="opp-content">
+        <div class="opp-title">Brookdale Community College Dual Enrollment Opens</div>
+        <div class="opp-sub">Brookdale CC, Lincroft · High School Juniors & Seniors · Low-Cost</div>
+      </div>
+      <span class="opp-badge">Upcoming</span>
+    </div>
+  </div>
+</section>
+
+<!-- SUGGEST A RESOURCE -->
+<section id="suggest" aria-labelledby="suggest-heading">
+  <div class="section-header">
+    <div class="section-tag">➕ Suggest a Resource</div>
+    <h2 id="suggest-heading">Know a Great Resource?</h2>
+    <p>Help other Monmouth County families discover it. All submissions are reviewed by our team before being published.</p>
+  </div>
+  <div class="form-wrap">
+    <form id="suggestForm" novalidate onsubmit="handleSubmit(event)">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="f-name">Resource / Program Name *</label>
+          <input id="f-name" type="text" placeholder="e.g. Monmouth Tutoring Center" required />
+        </div>
+        <div class="form-group">
+          <label for="f-org">Organization Name *</label>
+          <input id="f-org" type="text" placeholder="e.g. Monmouth County YMCA" required />
+        </div>
+        <div class="form-group">
+          <label for="f-cat">Category *</label>
+          <select id="f-cat" required>
+            <option value="">Select a category…</option>
+            <option>Academic Support</option>
+            <option>Mental Health</option>
+            <option>STEM Programs</option>
+            <option>Sports Leagues</option>
+            <option>Internship Opportunities</option>
+            <option>Volunteer Opportunities</option>
+            <option>Scholarships</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="f-age">Age Group *</label>
+          <select id="f-age" required>
+            <option value="">Select age group…</option>
+            <option>Middle School (11-14)</option>
+            <option>High School (14-18)</option>
+            <option>Teen (13-19)</option>
+            <option>Family</option>
+            <option>All Ages</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label for="f-desc">Description *</label>
+          <textarea id="f-desc" placeholder="Briefly describe what this resource offers and who it helps…" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="f-website">Website URL</label>
+          <input id="f-website" type="url" placeholder="https://example.org" />
+        </div>
+        <div class="form-group">
+          <label for="f-contact">Contact Email *</label>
+          <input id="f-contact" type="email" placeholder="contact@org.org" required />
+        </div>
+        <div class="form-group">
+          <label for="f-cost">Cost</label>
+          <select id="f-cost">
+            <option>Free</option>
+            <option>Low-Cost</option>
+            <option>Paid</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="f-location">Location / City</label>
+          <input id="f-location" type="text" placeholder="e.g. Red Bank, NJ" />
+        </div>
+      </div>
+      <p class="form-note">📋 Submissions are reviewed within 3–5 business days. By submitting you agree to our content guidelines.</p>
+      <button type="submit" class="btn-submit">Submit for Review →</button>
+    </form>
+    <div id="formSuccess" style="display:none; text-align:center; padding:2rem;">
+      <div style="font-size:3rem">✅</div>
+      <h3 style="margin:.8rem 0 .4rem; font-size:1.2rem;">Thank you for your submission!</h3>
+      <p style="color:var(--muted); font-size:.9rem;">Our team will review it within 3–5 business days.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCHOLARSHIPS -->
+<section id="scholarships" aria-labelledby="sch-heading">
+  <div class="section-header">
+    <div class="section-tag">🎓 Scholarships</div>
+    <h2 id="sch-heading">Scholarship Listings</h2>
+    <p>Find funding opportunities for Monmouth County students.</p>
+  </div>
+  <div class="sch-grid" role="list">
+    <div class="sch-card" role="listitem">
+      <div class="sch-amount">$2,500</div>
+      <div class="sch-name">Monmouth County Community Foundation Award</div>
+      <div class="sch-org">Monmouth County Community Foundation</div>
+      <div class="sch-deadline">⏰ Deadline: April 15, 2026</div>
+      <div class="sch-gpa">Min. GPA: 3.0 · Monmouth County Residents Only</div>
+    </div>
+    <div class="sch-card" role="listitem">
+      <div class="sch-amount">$1,000</div>
+      <div class="sch-name">Shore Region STEM Scholarship</div>
+      <div class="sch-org">Shore Medical Center Foundation</div>
+      <div class="sch-deadline">⏰ Deadline: March 31, 2026</div>
+      <div class="sch-gpa">STEM Focus · High School Seniors · Min. GPA: 3.2</div>
+    </div>
+    <div class="sch-card" role="listitem">
+      <div class="sch-amount">$500</div>
+      <div class="sch-name">NJ Future Leaders Volunteer Award</div>
+      <div class="sch-org">NJ Department of Youth Services</div>
+      <div class="sch-deadline">⏰ Deadline: May 1, 2026</div>
+      <div class="sch-gpa">100+ Volunteer Hours Required · All NJ Residents</div>
+    </div>
+    <div class="sch-card" role="listitem">
+      <div class="sch-amount">$3,000</div>
+      <div class="sch-name">Brookdale Excellence Scholarship</div>
+      <div class="sch-org">Brookdale Community College</div>
+      <div class="sch-deadline">⏰ Deadline: June 1, 2026</div>
+      <div class="sch-gpa">Incoming Freshmen · Monmouth/Ocean County</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME TIPS -->
+<section id="resume" aria-labelledby="resume-heading">
+  <div class="section-header">
+    <div class="section-tag">📄 Resume Builder Tips</div>
+    <h2 id="resume-heading">Build a Standout Resume</h2>
+    <p>Practical advice for teens putting together their first resume or college application profile.</p>
+  </div>
+  <div class="resume-grid" role="list">
+    <div class="resume-tip" role="listitem">
+      <div class="tip-icon">🎯</div>
+      <div class="tip-title">Start with a Strong Summary</div>
+      <div class="tip-body">Write 2–3 sentences describing who you are, what you're passionate about, and what you're looking for. Be specific and authentic.</div>
+    </div>
+    <div class="resume-tip" role="listitem">
+      <div class="tip-icon">📚</div>
+      <div class="tip-title">Lead with Education (For Now)</div>
+      <div class="tip-body">As a teen, your education section is your strongest asset. Include GPA (if 3.0+), AP/IB courses, and relevant awards or honors.</div>
+    </div>
+    <div class="resume-tip" role="listitem">
+      <div class="tip-icon">🤝</div>
+      <div class="tip-title">Volunteer Work Counts</div>
+      <div class="tip-body">Any community service or volunteer experience is valuable. Describe the impact you made, not just the task you performed.</div>
+    </div>
+    <div class="resume-tip" role="listitem">
+      <div class="tip-icon">💡</div>
+      <div class="tip-title">Use Action Verbs</div>
+      <div class="tip-body">Start each bullet point with a strong verb: Led, Created, Designed, Organized, Increased. Avoid passive phrases like "was responsible for."</div>
+    </div>
+    <div class="resume-tip" role="listitem">
+      <div class="tip-icon">📏</div>
+      <div class="tip-title">Keep It to One Page</div>
+      <div class="tip-body">For high schoolers, a single, clean page is ideal. Use consistent fonts, clear section headers, and at least 0.5" margins all around.</div>
+    </div>
+    <div class="resume-tip" role="listitem">
+      <div class="tip-icon">🔗</div>
+      <div class="tip-title">Add Links & Portfolio</div>
+      <div class="tip-body">Include a LinkedIn URL, GitHub, or portfolio if relevant. Even a simple Google Sites portfolio can set you apart from other applicants.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE OVERVIEW -->
+<section id="arch" aria-labelledby="arch-heading">
+  <div class="section-header">
+    <div class="section-tag">🏗️ Architecture</div>
+    <h2 id="arch-heading" style="color:white">Tech Stack & Architecture Plan</h2>
+    <p style="color:#9CA3AF">Full project blueprint for building the final NextGen Community Hub.</p>
+  </div>
+  <div class="arch-grid">
+    <div class="arch-card">
+      <h3>⚙️ Recommended Tech Stack</h3>
+      <ul>
+        <li><strong>Frontend:</strong> Next.js 14 (App Router) — SSR/SSG, SEO-friendly for a public resource site</li>
+        <li><strong>Styling:</strong> Tailwind CSS — rapid, accessible, responsive-first</li>
+        <li><strong>Database:</strong> Supabase (PostgreSQL) — free tier, realtime, row-level security</li>
+        <li><strong>Auth (Admin):</strong> Supabase Auth — for admin review workflow</li>
+        <li><strong>Forms:</strong> React Hook Form + Zod validation</li>
+        <li><strong>State:</strong> React Context + Zustand for filter state</li>
+        <li><strong>Hosting:</strong> Vercel — free tier, CI/CD from GitHub</li>
+        <li><strong>Map (Optional):</strong> Leaflet.js + OpenStreetMap</li>
+        <li><strong>Search:</strong> Supabase full-text search (pg_trgm)</li>
+      </ul>
+    </div>
+    <div class="arch-card">
+      <h3>📁 Folder Structure</h3>
+      <ul>
+        <li>/app — Next.js App Router pages</li>
+        <li>/app/directory — Resource directory page</li>
+        <li>/app/scholarships — Scholarship listings</li>
+        <li>/app/resume-tips — Static resume tips page</li>
+        <li>/app/suggest — Submission form page</li>
+        <li>/app/admin — Admin review dashboard</li>
+        <li>/components/ui — Reusable Card, Badge, Button</li>
+        <li>/components/directory — Search, Filter, ResourceCard</li>
+        <li>/lib/supabase.ts — DB client setup</li>
+        <li>/lib/search.ts — Filter/search logic</li>
+        <li>/types/resource.ts — TypeScript interfaces</li>
+      </ul>
+    </div>
+    <div class="arch-card">
+      <h3>🗄️ Database Schema</h3>
+      <ul>
+        <li>resources(id, name, description, category, age_group, cost, location, contact, website, tags[], featured, approved, created_at)</li>
+        <li>submissions(id, resource_id FK, submitted_by, status ENUM[pending,approved,rejected], reviewed_at)</li>
+        <li>opportunities(id, title, org, date, deadline, cost, age_group, tags[], active)</li>
+        <li>scholarships(id, name, org, amount, deadline, gpa_min, location, description, link)</li>
+        <li>Index: resources.category, resources.tags GIN, resources.featured, resources.approved</li>
+      </ul>
+    </div>
+    <div class="arch-card">
+      <h3>🔍 Search & Filter Logic</h3>
+      <ul>
+        <li>Client state holds: query, category, ageGroup, cost filters</li>
+        <li>Debounced search input (300ms) triggers API call</li>
+        <li>Supabase query builder chains .ilike(), .eq(), .contains() conditionally</li>
+        <li>Server-side full text: to_tsquery on name + description</li>
+        <li>Results paginated (12/page), sorted by featured desc, then name asc</li>
+        <li>URL params sync with filters (sharable filtered links)</li>
+      </ul>
+    </div>
+    <div class="arch-card">
+      <h3>📋 Approval Workflow</h3>
+      <ul>
+        <li>User submits form → row inserted into submissions table with status=pending</li>
+        <li>Admin email notification via Supabase Edge Function + Resend</li>
+        <li>Admin logs in at /admin, views pending queue</li>
+        <li>Admin approves → resource row created, status=approved</li>
+        <li>Admin rejects → status=rejected, optional feedback note</li>
+        <li>Submitter notified by email either way</li>
+      </ul>
+    </div>
+    <div class="arch-card">
+      <h3>🎨 Design System</h3>
+      <ul>
+        <li>Primary: Indigo #4F46E5 — trustworthy, modern, academic</li>
+        <li>Accent: Emerald #10B981 — "go" signal for free/available resources</li>
+        <li>Cards with 14px radius, subtle box-shadow, hover lift</li>
+        <li>WCAG AA contrast on all text/background combos</li>
+        <li>ARIA labels on all interactive elements</li>
+        <li>Mobile-first breakpoints: 640 / 768 / 1024 / 1280px</li>
+      </ul>
+    </div>
+  </div>
+  <pre class="code-block">// Data Model Example (TypeScript / JSON)
+{
+  "id": "res_001",
+  "name": "Monmouth County Library SAT Prep",
+  "description": "Free SAT/ACT workshops every weekend at multiple branches.",
+  "category": "Academic Support",
+  "age_group": "High School (14-18)",
+  "cost": "Free",
+  "location": "Manalapan, NJ",
+  "contact": "info@monmouthcountylibrary.org",
+  "website": "https://monmouthcounty.lib.nj.us",
+  "tags": ["SAT", "ACT", "tutoring", "test-prep", "free"],
+  "featured": true,
+  "approved": true,
+  "created_at": "2026-01-15T10:00:00Z"
+}</pre>
+</section>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="footer-logo">NextGen Community Hub</div>
+  <div class="footer-sub">Serving teens and families across Monmouth County, NJ</div>
+  <nav class="footer-links" aria-label="Footer navigation">
+    <a href="#directory">Directory</a>
+    <a href="#spotlight">Spotlight</a>
+    <a href="#opportunities">Opportunities</a>
+    <a href="#scholarships">Scholarships</a>
+    <a href="#resume">Resume Tips</a>
+    <a href="#suggest">Suggest a Resource</a>
+  </nav>
+  <div class="footer-copy">
+    © 2026 NextGen Community Hub · Monmouth County, NJ · Made for the TSA Web Design Competition
+  </div>
+</footer>
+
+<script>
+  const resources = [
+    { name: "Monmouth County Library SAT Prep", category: "Academic Support", age: "High School (14-18)", cost: "Free", location: "Manalapan, NJ", desc: "Free SAT/ACT workshops with expert instructors at multiple library branches.", tags: ["SAT","ACT","tutoring","test-prep"] },
+    { name: "Brookdale College Dual Enrollment", category: "Academic Support", age: "High School (14-18)", cost: "Low-Cost", location: "Lincroft, NJ", desc: "Take college courses for credit while still in high school.", tags: ["college","dual-enrollment","credit"] },
+    { name: "Princeton Review Tutoring", category: "Academic Support", age: "High School (14-18)", cost: "Paid", location: "Red Bank, NJ", desc: "1-on-1 and group tutoring sessions for all major subjects and standardized tests.", tags: ["tutoring","SAT","math","science"] },
+    { name: "Teen Talk NJ – Peer Support Groups", category: "Mental Health", age: "Teen (13-19)", cost: "Free", location: "Freehold, NJ", desc: "Weekly peer-led support groups facilitated by licensed counselors.", tags: ["mental-health","support","anxiety","peers"] },
+    { name: "Lunch Is4Loser Kids – School Counseling", category: "Mental Health", age: "Middle School (11-14)", cost: "Free", location: "Asbury Park, NJ", desc: "School-based mental health support through trained counselors.", tags: ["mental-health","counseling","school"] },
+    { name: "Rutgers STEM Scholars Program", category: "STEM Programs", age: "High School (14-18)", cost: "Low-Cost", location: "New Brunswick, NJ", desc: "Summer residential STEM program with robotics, biotech labs, and faculty mentorship.", tags: ["STEM","robotics","summer","Rutgers"] },
+    { name: "MCST Robotics Club", category: "STEM Programs", age: "Middle School (11-14)", cost: "Free", location: "Freehold, NJ", desc: "After-school robotics club building and competing with FIRST Lego League robots.", tags: ["robotics","FIRST","engineering","coding"] },
+    { name: "Girls Who Code – Monmouth Chapter", category: "STEM Programs", age: "High School (14-18)", cost: "Free", location: "Red Bank, NJ", desc: "Free coding clubs and summer intensives for girls and non-binary teens.", tags: ["coding","girls-who-code","computer-science"] },
+    { name: "Monmouth County YMCA Basketball League", category: "Sports Leagues", age: "Middle School (11-14)", cost: "Low-Cost", location: "Long Branch, NJ", desc: "Recreational and competitive basketball leagues for middle schoolers.", tags: ["basketball","league","YMCA","team-sports"] },
+    { name: "Jersey Shore Swim Club", category: "Sports Leagues", age: "Teen (13-19)", cost: "Paid", location: "Ocean Township, NJ", desc: "Competitive swim team with year-round training and meets.", tags: ["swimming","competitive","team"] },
+    { name: "Shore Medical Center Teen Internship", category: "Internship Opportunities", age: "High School (14-18)", cost: "Free", location: "Somers Point, NJ", desc: "Paid summer internship exploring healthcare careers at a leading regional hospital.", tags: ["internship","healthcare","paid","summer"] },
+    { name: "NJ Youth Volunteer Corps", category: "Volunteer Opportunities", age: "Teen (13-19)", cost: "Free", location: "Red Bank, NJ", desc: "Structured volunteer service cohorts making a difference in NJ communities.", tags: ["volunteer","community","service-hours"] },
+    { name: "Monmouth County Community Foundation Award", category: "Scholarships", age: "High School (14-18)", cost: "Free", location: "Freehold, NJ", desc: "$2,500 scholarship for Monmouth County residents with a minimum 3.0 GPA.", tags: ["scholarship","money","college","award"] },
+  ];
+
+  function renderCards(list) {
+    const grid = document.getElementById('cardsGrid');
+    const count = document.getElementById('resultsCount');
+    count.textContent = `Showing ${list.length} resource${list.length !== 1 ? 's' : ''}`;
+    if (!list.length) {
+      grid.innerHTML = '<div class="no-results" role="status"><p style="font-size:2rem">🔍</p><p>No resources match your search. Try adjusting your filters.</p></div>';
+      return;
+    }
+    grid.innerHTML = list.map(r => `
+      <div class="resource-card" role="listitem" aria-label="${r.name}">
+        <div class="rc-header">
+          <span class="rc-cat-pill">${r.category}</span>
+        </div>
+        <div class="rc-title">${r.name}</div>
+        <div class="rc-desc">${r.desc}</div>
+        <div class="rc-details">
+          <span class="tag ${r.cost === 'Free' ? 'free' : ''}">${r.cost}</span>
+          <span class="tag">${r.age}</span>
+          ${r.tags.slice(0,2).map(t => `<span class="tag">${t}</span>`).join('')}
+        </div>
+        <div class="rc-footer">
+          <span class="rc-location">📍 ${r.location}</span>
+          <a href="#" class="btn-sm" aria-label="View details for ${r.name}">Details →</a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function filterResources() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    const cat = document.getElementById('catFilter').value;
+    const age = document.getElementById('ageFilter').value;
+    const cost = document.getElementById('costFilter').value;
+
+    const filtered = resources.filter(r => {
+      const matchQ = !q || r.name.toLowerCase().includes(q) || r.desc.toLowerCase().includes(q) || r.tags.some(t => t.toLowerCase().includes(q));
+      const matchCat = !cat || r.category === cat;
+      const matchAge = !age || r.age === age;
+      const matchCost = !cost || r.cost === cost;
+      return matchQ && matchCat && matchAge && matchCost;
+    });
+    renderCards(filtered);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const req = ['f-name','f-org','f-cat','f-age','f-desc','f-contact'];
+    let valid = true;
+    req.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) { el.style.borderColor = '#EF4444'; valid = false; }
+      else el.style.borderColor = '';
+    });
+    if (!valid) { alert('Please fill in all required fields.'); return; }
+    document.getElementById('suggestForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+
+  renderCards(resources);
+</script>
+</body>
+</html>
